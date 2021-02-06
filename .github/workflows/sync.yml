@@ -1,0 +1,21 @@
+name: Fork Sync
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+
+jobs:
+  sync:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Fetch the master branch
+        uses: actions/checkout@v1
+        with:
+          ref: master
+      - name: Fork Sync With Upstream
+        uses: aormsby/Fork-Sync-With-Upstream-action@v2.3
+        with:
+          upstream_repository: citizenfx/cfx-server-data
+          upstream_branch: master
+          target_branch: master
+          git_pull_args: --ff-only
